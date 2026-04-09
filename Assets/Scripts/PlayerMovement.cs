@@ -28,20 +28,29 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(moveHorizontal * moveSpeed, rb.linearVelocity.y, moveVertical * moveSpeed);
 
         //점프 입력
-        if(Input.GetButtonDown("Jump")&& isGrounded) // && 두 값을 만족할 때 -> (스페이스 버튼을 눌렀을때와 땅 위에 있을때)
+        if(Input.GetButtonDown("Jump") && isGrounded) // && 두 값을 만족할 때 -> (스페이스 버튼을 눌렀을때와 땅 위에 있을때)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);               //위쪽 방향으로 설정한 힘수치만큼 순간적으로 힘을 가한다.
+            isGrounded = false;                                                   //점프를 하는 순간 땅에서 떨어졌기 때문에 false로 한다.
         }
 
     }
 
-    void OnTriggerEnter(Collider other)
+ 
+    void OnCollisionEnter(Collision collision)                             //유니티에서 지원해주는 충돌 함수 체크 
     {
-        if(other.CompareTag("Coin"))
+        if(collision.gameObject.tag == "Ground")                           //충돌이 일어난 물체의 Tag 가 Ground 인 경우
+        { 
+            isGrounded = true;                                             //땅과 충돌하면 true로 만들어 준다.
+        }
+    }
+
+    void OnTriggerEnter(Collider other)                                    //캐릭터가 특정 지역을 들어갈때(충돌 범위) 체크 하는 함수
+    {
+        if(other.CompareTag("Coin"))                                       //Tag가 코인일 경우
         {
-            coinCount++;
-            Destroy(other.gameObject);
+            coinCount++;                                                   //코인 변수를 1 올린다.
+            Destroy(other.gameObject);                                     //코인 오프젝트를 파괴한다.
         }
 
     }

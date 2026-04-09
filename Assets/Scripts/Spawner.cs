@@ -47,11 +47,11 @@ public class Spawner : MonoBehaviour
 
         if(randomValue < coinSpawnChance)
         {
-            Instantiate(coinPrefabs, spawnTranform.position, spawnTranform.rotation);    //코인 프리팹을 해당 위치에 생성한다.
+            Instantiate(coinPrefabs, spawnTranform.position, spawnTranform.rotation);    //코인 프리팹을 해당 위치에 생성 한다.
         }
         else
         {
-            Instantiate(MissilePrefabs, spawnTranform.position, spawnTranform.rotation);    //미사일 프리팹을 해당 위치에 생성한다.
+            Instantiate(MissilePrefabs, spawnTranform.position, spawnTranform.rotation);    //미사일 프리팹을 해당 위치에 생성 한다.
         }
     }
 
